@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="/script.js"></script>
+  <title>SVG Animation</title>
+</head>
+<body>
+  <section class="pendulum">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+         width="100%" height="100%" viewBox="0 0 400 400">
+      <defs>
+        <radialGradient id="Rg" r="90%" fx="50%" fy="30%">
+          <stop stop-color="#F3F3F3" offset="5%"></stop>
+          <stop stop-color="#3E3D44" offset="45%"></stop>
+          <stop stop-color="black" offset="100%" stop-opacity="0.72"/>
+        </radialGradient>
+      </defs>
+      <!-- Верхняя полка -->
+      <polyline fill="none" stroke="#d3d3d3" stroke-width="20" points="-400,0 800,0"/>
+      <!-- Шарик на нитке -->
+      <g id="G1" fill="url(#Rg)">
+        <!-- Нитка -->
+        <polyline id="polyline" fill="none" stroke="#4C4B53" stroke-width="3" points="200,10 200,210"/>
+        <circle id="circle" fill="url(#Rg)" stroke-width="3" cx="200" cy="210" r="20"/>
+      </g>
+      <animateTransform xlink:href="#G1"
+                        attributeName="transform"
+                        type="rotate"
+                        begin="click"
+                        dur="3.5s"
+                        values="
+                           60, 200, 10;
+                          -60, 200,10;
+                           60, 200, 10"
+                        calcMode="spline"
+                        keySplines=" 0.63 0.015 0.13 0.97; 0.63 0.015 0.13 0.97"
+                        repeatCount="indefinite"
+      />
+      <!-- Центр вращения -->
+      <circle fill="gray" stroke="black" stroke-width="1" cx="200" cy="10" r="4"/>
+    </svg>
+    <p>*Press the ball to start animation*</p>
+    <div class="pendulum__form">
+      <label for="myInput">Thread length (px):</label>
+      <button class="pendulum__form__button minus" id="btn-minus" type="button" onclick="polylineLengthMinus()">-20</button>
+      <input id="myInput" type="number" value=210 readonly>
+      <button class="pendulum__form__button" id="btn-plus" type="button" onclick="polylineLengthPlus()">+20</button>
+    </div>
+  </section>
+</body>
+</html>
